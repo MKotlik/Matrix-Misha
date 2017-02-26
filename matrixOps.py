@@ -6,8 +6,8 @@ from pprint import pprint
 
 """
 Matrices look like:
-matrixA[row (index of sublist), col (index within sublist)]
-in terms of the screen: matrixA[x][y]
+matrixA[col (index of sublist), row (index within sublist)]
+in terms of the edge matrix: matrixA[position][point]
 
 We are not modifying in place; we are returning a new matrix
 """
@@ -15,8 +15,8 @@ We are not modifying in place; we are returning a new matrix
 
 # Prints the matrix
 def printM(matrix):
-    for row in matrix:
-        pprint(row)
+    for col in matrix:
+        pprint(col)
 
 
 # ++++++++++++++++++++++++ #
@@ -47,10 +47,10 @@ def scalarMult(scalar, matrix):
         print "matrixOps ERROR: (scalarMult) cannot multiply an empty matrix"
         return None
     modMatrix = []
-    for rowEl in matrix:
-        newRow = []
-        for colEl in rowEl:
-            newRow.append(colEl * scalar)
+    for colEl in matrix:
+        newCol = []
+        for rowEl in colEl:
+            newCol.append(rowEl * scalar)
         modMatrix.append(newRow)
     return modMatrix
 
@@ -63,20 +63,23 @@ def matrixMult(matrixA, matrixB):
         print "matrixOps ERROR: (matrixMult) cannot multiply an empty matrix"
         return None
     # Check that numbers of cols in A matches number of rows in B
-    if (len(matrixA[0]) != len(matrixB)):
+    if (len(matrixA) != len(matrixB[0])):
         print "matrixOps ERROR: (matrixMult) num of cols in 1st matrix doesn't \
         match num of rows in 2nd matrix"
         return None
     # Create new matrix, and fill it with multiplication product
     product = []
-    for rowN in range(len(matrixA)):
-        row = []
-        for colN in range(len(matrixB[0])):
+    # Iterate over dimensions of product matrix (thru each col, thru each cell)
+    # Dimensions: num cols in B * num rows in A
+    for colN in range(len(matrixB)):
+        col = []  # Create new column to fill
+        for rowN in range(len(matrixA[0])):
             cellProd = 0
-            for elNum in range(len(matrixB)):
-                cellProd += matrixA[rowN][elNum] * matrixB[elNum][colN]
-            row.append(cellProd)
-        product.append(row)
+            # Iterate over els to be multiplied, equal to num cols in A
+            for elNum in range(len(matrixA)):
+                cellProd += matrixA[elNum][rowN] * matrixB[colN][elNum]
+            col.append(cellProd)
+        product.append(col)
     return product
 
 
@@ -97,7 +100,8 @@ def getLeftIdentity(matrix):
         print "matrixOps ERROR: (identity) cannot create identity for \
         an empty matrix"
         return None
-    return createIdentity(matrix, len(matrix))
+    # Left identity needs to match num rows in matrix
+    return createIdentity(matrix, len(matrix[0]))
 
 
 # Create the right identity matrix for a given matrix
@@ -107,14 +111,15 @@ def getRightIdentity(matrix):
         print "matrixOps ERROR: (identity) cannot create identity for \
         an empty matrix"
         return None
-    return createIdentity(matrix, len(matrix[0]))
+    # Right identity needs to match num cols in matrix
+    return createIdentity(matrix, len(matrix))
 
 
 # Creates identity matrix with given dimension
 def createIdentity(matrix, numEls):
     identity = []
-    for rowN in range(numEls):
-        row = [0] * numEls
-        row[rowN] = 1
-        identity.append(row)
+    for colN in range(numEls):
+        col = [0] * numEls
+        col[colN] = 1
+        identity.append(col)
     return identity
