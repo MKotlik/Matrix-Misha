@@ -87,7 +87,7 @@ print "Matrix drawn on screen"
 save_ppm(screen, "matrixTest.ppm")
 print "Windows Mode: matrix drawing saved as 'matrixTest.ppm'"
 """
-# display(screen)
+display(screen)
 save_extension(screen, "matrixTest.png")
 print "Linux Mode: matrix drawing saved as 'matrixTest.png'"
 eM2.addEdge(point1, point2)
