@@ -15,7 +15,7 @@ class EdgeMatrix:
             if type(initMatrix) is not list:
                 raise TypeError(
                     "initMatrix arg of EdgeMatrix constructor must be 2d list")
-            elif len(initMatrix) > 0 and len(initMatrix)[0] != 4:
+            elif len(initMatrix) > 0 and len(initMatrix[0]) != 4:
                 raise ValueError(
                     "initMatrix of EdgeMatrix constructor must have 4 rows")
             else:
@@ -37,10 +37,10 @@ class EdgeMatrix:
                 "addPoint method of edgeMatrix takes a 4-element list")
         self.matrixStore.append(point)
 
-    def addEdge(point1, point2):
+    def addEdge(self, point1, point2):
         try:
-            addPoint(point1)
-            addPoint(point2)
+            self.addPoint(point1)
+            self.addPoint(point2)
         except TypeError:
             raise TypeError(
                 "addEdge method of edgeMatrix takes two 4-element lists")
@@ -49,11 +49,11 @@ class EdgeMatrix:
                 "addEdge method of edgeMatrix takes two 4-element lists")
 
     def __str__(self):
-        obj_str = ""
-        r0 = r1 = r2 = r3 = ""
         if len(self.matrixStore) == 0:
-            print "[]"
+            return "[]"
         else:
+            obj_str = ""
+            rowList = ["|"] * 4
             for point in self.matrixStore:
                 # Calculate maxLen for padding
                 maxLen = 0
@@ -64,12 +64,13 @@ class EdgeMatrix:
                 # Create padding formatting string
                 padStr = "{:>" + str(maxLen) + "}"
                 # Add each coord to respective rowStr, w/ padding
-                r0 += padStr.format(point[0]) + ""
-                r1 += padStr.format(point[1]) + ""
-                r2 += padStr.format(point[2]) + ""
-                r3 += padStr.format(point[3]) + ""
-            obj_str = r0 + "\n" + r1 + "\n" + r2 + "\n" + r3 + "\n"
-        return obj_str
+                rowList[0] += padStr.format(point[0]) + " | "
+                rowList[1] += padStr.format(point[1]) + " | "
+                rowList[2] += padStr.format(point[2]) + " | "
+                rowList[3] += padStr.format(point[3]) + " | "
+            for row in rowList:
+                obj_str += row[:-1] + "\n"
+            return obj_str[:-1]
 
     # __multiply__ goes here
 

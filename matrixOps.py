@@ -19,7 +19,7 @@ def toString(matrix):
         return str(matrix)
     else:
         obj_str = ""
-        rowList = [""] * len(matrix[0])
+        rowList = ["|"] * len(matrix[0])
         for col in matrix:
             # Calculate maxLen for padding
             maxLen = 0
@@ -33,7 +33,7 @@ def toString(matrix):
             for rowN in range(len(matrix[0])):
                 rowList[rowN] += padStr.format(col[rowN]) + " | "
         for row in rowList:
-            obj_str += row[:-2] + "\n"
+            obj_str += row[:-1] + "\n"
         return obj_str[:-1]
 
 
@@ -58,7 +58,7 @@ def multiply(operandA, matrix):
     elif type(operandA) is long:
         return scalarMult(operandA, matrix)
     else:
-        raise TypeError("matrixOps.multiply() takes a matrix or number, " \
+        raise TypeError("matrixOps.multiply() takes a matrix or number, "
                         "followed by a matrix")
 
 
@@ -66,7 +66,8 @@ def multiply(operandA, matrix):
 def scalarMult(scalar, matrix):
     # Check that matrix isn't empty
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        raise ValueError("matrixOps.multiply() cannot multiply an empty matrix")
+        raise ValueError(
+            "matrixOps.multiply() cannot multiply an empty matrix")
     modMatrix = []
     for colEl in matrix:
         newCol = []
@@ -80,12 +81,13 @@ def scalarMult(scalar, matrix):
 def matrixMult(matrixA, matrixB):
     # Check that both matrices are not empty
     if (len(matrixA) == 0 or len(matrixA[0]) == 0 or
-        len(matrixB) == 0 or len(matrixB[0]) == 0):
-        raise ValueError("matrixOps.multiply() cannot multiply an empty matrix")
+            len(matrixB) == 0 or len(matrixB[0]) == 0):
+        raise ValueError(
+            "matrixOps.multiply() cannot multiply an empty matrix")
     # Check that numbers of cols in A matches number of rows in B
     if (len(matrixA) != len(matrixB[0])):
-        raise ValueError("matrixOps.multiply() matrix multiplication " \
-                         "requires that num cols in 1 matrix matches num " \
+        raise ValueError("matrixOps.multiply() matrix multiplication "
+                         "requires that num cols in 1 matrix matches num "
                          "rows in 2nd matrix")
     # Create new matrix, and fill it with multiplication product
     product = []
@@ -113,7 +115,7 @@ def getIdentity(matrix):
     try:
         return getLeftIdentity(matrix)
     except ValueError:
-        raise ValueError("matrixOps.getIdentity() cannot create identity " \
+        raise ValueError("matrixOps.getIdentity() cannot create identity "
                          "for an empty matrix")
 
 
@@ -121,7 +123,7 @@ def getIdentity(matrix):
 # Aka the identity matrix that would be the left operand
 def getLeftIdentity(matrix):
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        raise ValueError("matrixOps.getLeftIdentity() cannot create identity " \
+        raise ValueError("matrixOps.getLeftIdentity() cannot create identity "
                          "for an empty matrix")
     # Left identity needs to match num rows in matrix
     return createIdentity(matrix, len(matrix[0]))
@@ -131,7 +133,7 @@ def getLeftIdentity(matrix):
 # Aka the identity matrix that would be the right operand
 def getRightIdentity(matrix):
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        raise ValueError("matrixOps.getRightIdentity() cannot create identity " \
+        raise ValueError("matrixOps.getRightIdentity() cannot create identity "
                          "for an empty matrix")
     # Right identity needs to match num cols in matrix
     return createIdentity(matrix, len(matrix))
