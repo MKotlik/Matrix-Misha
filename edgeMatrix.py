@@ -10,7 +10,7 @@ class EdgeMatrix:
     X, Y, Z, SCALE = 0, 1, 2, 3
 
     # Constructor
-    def __init__(self, initMatrix=None, prevObj=None, size=0):
+    def __init__(self, initMatrix=None, prevObj=None):
         if initMatrix is not None:
             if type(initMatrix) is not list:
                 raise TypeError(
@@ -19,13 +19,11 @@ class EdgeMatrix:
                 raise ValueError(
                     "initMatrix of EdgeMatrix constructor must have 4 rows")
             else:
-                matrixStore = initMatrix
+                self.matrixStore = initMatrix
         elif prevObj is not None:
-            matrixStore = prevObj.getMatrix()
-        elif size > 0:
-            matrixStore = [None] * size
+            self.matrixStore = prevObj.getMatrix()
         else:
-            matrixStore = []
+            self.matrixStore = []
 
     def getMatrix(self):
         return self.matrixStore
@@ -53,21 +51,24 @@ class EdgeMatrix:
     def __str__(self):
         obj_str = ""
         r0 = r1 = r2 = r3 = ""
-        for point in self.matrixStore:
-            # Calculate maxLen for padding
-            maxLen = 0
-            for coord in point:
-                curLen = len(str(coord))
-                if curLen > maxLen:
-                    maxLen = curLen
-            # Create padding formatting string
-            padStr = "{:>" + str(maxLen) + "}"
-            # Add each coord to respective rowStr, w/ padding
-            r0 += padStr.format(point[0]) + ""
-            r1 += padStr.format(point[1]) + ""
-            r2 += padStr.format(point[2]) + ""
-            r3 += padStr.format(point[3]) + ""
-        obj_str = r0 + "\n" + r1 + "\n" + r2 + "\n" + r3 + "\n"
+        if len(self.matrixStore) == 0:
+            print "[]"
+        else:
+            for point in self.matrixStore:
+                # Calculate maxLen for padding
+                maxLen = 0
+                for coord in point:
+                    curLen = len(str(coord))
+                    if curLen > maxLen:
+                        maxLen = curLen
+                # Create padding formatting string
+                padStr = "{:>" + str(maxLen) + "}"
+                # Add each coord to respective rowStr, w/ padding
+                r0 += padStr.format(point[0]) + ""
+                r1 += padStr.format(point[1]) + ""
+                r2 += padStr.format(point[2]) + ""
+                r3 += padStr.format(point[3]) + ""
+            obj_str = r0 + "\n" + r1 + "\n" + r2 + "\n" + r3 + "\n"
         return obj_str
 
     # __multiply__ goes here

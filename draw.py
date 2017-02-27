@@ -9,7 +9,7 @@ def draw_matrix(edgeMat, screen, color):
     while pairNum < (limit - 1):
         p1 = edgeMat[pairNum]
         p2 = edgeMat[pairNum + 1]
-        draw_line(p1[0], p1[1], p2[0], p2[1], screen color)
+        draw_line(p1[0], p1[1], p2[0], p2[1], screen, color)
     if len(edgeMat) % 2 != 0:
         lastPt = edgeMat[len(edgeMat) - 1]
         plot(screen, color, lastPt[0], lastPt[1])
