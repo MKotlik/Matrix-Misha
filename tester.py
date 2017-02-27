@@ -8,7 +8,6 @@ from edgeMatrix import EdgeMatrix
 import matrixOps
 
 # Basic matrix math tests
-print "NOTE: matrices are being printed column across, row down -> incorrectly"
 matrixA = [[1, 2], [4, 5], [7, 8]]
 matrixOps.printM(matrixA)
 print "---------------"

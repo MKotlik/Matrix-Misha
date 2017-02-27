@@ -58,17 +58,15 @@ def multiply(operandA, matrix):
     elif type(operandA) is long:
         return scalarMult(operandA, matrix)
     else:
-        print "matrixOps ERROR: (multiply) args must be matrices \
-        or numbers"
-        return None
+        raise TypeError("matrixOps.multiply() takes a matrix or number, " \
+                        "followed by a matrix")
 
 
 # Scalar Multiplication
 def scalarMult(scalar, matrix):
     # Check that matrix isn't empty
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        print "matrixOps ERROR: (scalarMult) cannot multiply an empty matrix"
-        return None
+        raise ValueError("matrixOps.multiply() cannot multiply an empty matrix")
     modMatrix = []
     for colEl in matrix:
         newCol = []
@@ -82,14 +80,13 @@ def scalarMult(scalar, matrix):
 def matrixMult(matrixA, matrixB):
     # Check that both matrices are not empty
     if (len(matrixA) == 0 or len(matrixA[0]) == 0 or
-            len(matrixB) == 0 or len(matrixB[0]) == 0):
-        print "matrixOps ERROR: (matrixMult) cannot multiply an empty matrix"
-        return None
+        len(matrixB) == 0 or len(matrixB[0]) == 0):
+        raise ValueError("matrixOps.multiply() cannot multiply an empty matrix")
     # Check that numbers of cols in A matches number of rows in B
     if (len(matrixA) != len(matrixB[0])):
-        print "matrixOps ERROR: (matrixMult) num of cols in 1st matrix doesn't \
-        match num of rows in 2nd matrix"
-        return None
+        raise ValueError("matrixOps.multiply() matrix multiplication " \
+                         "requires that num cols in 1 matrix matches num " \
+                         "rows in 2nd matrix")
     # Create new matrix, and fill it with multiplication product
     product = []
     # Iterate over dimensions of product matrix (thru each col, thru each cell)
@@ -113,16 +110,19 @@ def matrixMult(matrixA, matrixB):
 
 # By default, gets left identity matrix
 def getIdentity(matrix):
-    return getLeftIdentity(matrix)
+    try:
+        return getLeftIdentity(matrix)
+    except ValueError:
+        raise ValueError("matrixOps.getIdentity() cannot create identity " \
+                         "for an empty matrix")
 
 
 # Create the left identity matrix for a given matrix
 # Aka the identity matrix that would be the left operand
 def getLeftIdentity(matrix):
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        print "matrixOps ERROR: (identity) cannot create identity for \
-        an empty matrix"
-        return None
+        raise ValueError("matrixOps.getLeftIdentity() cannot create identity " \
+                         "for an empty matrix")
     # Left identity needs to match num rows in matrix
     return createIdentity(matrix, len(matrix[0]))
 
@@ -131,9 +131,8 @@ def getLeftIdentity(matrix):
 # Aka the identity matrix that would be the right operand
 def getRightIdentity(matrix):
     if (len(matrix) == 0 or len(matrix[0]) == 0):
-        print "matrixOps ERROR: (identity) cannot create identity for \
-        an empty matrix"
-        return None
+        raise ValueError("matrixOps.getRightIdentity() cannot create identity " \
+                         "for an empty matrix")
     # Right identity needs to match num cols in matrix
     return createIdentity(matrix, len(matrix))
 
