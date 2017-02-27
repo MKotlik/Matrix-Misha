@@ -12,11 +12,35 @@ in terms of the edge matrix: matrixA[position][point]
 We are not modifying in place; we are returning a new matrix
 """
 
+"""
+# Returns string representation of matrix
+def toString(matrix):
+    obj_str = ""
+    if len(matrix) == 0 or len(matrix[0]) == 0:
+        return str(matrix)
+    for rowN in range(len(matrix[0])):
+        # Calculate maxLen for padding
+        maxLen = 0
+        for coord in point:
+            curLen = len(str(coord))
+            if curLen > maxLen:
+                maxLen = curLen
+        # Create padding formatting string
+        padStr = "{:>" + str(maxLen) + "}"
+        # Add each coord to respective rowStr, w/ padding
+        r0 += padStr.format(point[0]) + ""
+        r1 += padStr.format(point[1]) + ""
+        r2 += padStr.format(point[2]) + ""
+        r3 += padStr.format(point[3]) + ""
+    obj_str = r0 + "\n" + r1 + "\n" + r2 + "\n" + r3 + "\n"
+    return obj_str
+"""
+
 
 # Prints the matrix
 def printM(matrix):
     for col in matrix:
-        pprint(col)
+        print str(col)
 
 
 # ++++++++++++++++++++++++ #
@@ -51,7 +75,7 @@ def scalarMult(scalar, matrix):
         newCol = []
         for rowEl in colEl:
             newCol.append(rowEl * scalar)
-        modMatrix.append(newRow)
+        modMatrix.append(newCol)
     return modMatrix
 
 

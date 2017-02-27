@@ -1,6 +1,20 @@
 from display import *
 
 
+def draw_matrix(edgeMat, screen, color):
+    pairNum = 0
+    limit = len(edgeMat)
+    if len(edgeMat) % 2 != 0:
+        limit -= 1
+    while pairNum < (limit - 1):
+        p1 = edgeMat[pairNum]
+        p2 = edgeMat[pairNum + 1]
+        draw_line(p1[0], p1[1], p2[0], p2[1], screen color)
+    if len(edgeMat) % 2 != 0:
+        lastPt = edgeMat[len(edgeMat) - 1]
+        plot(screen, color, lastPt[0], lastPt[1])
+
+
 def draw_line(x0, y0, x1, y1, screen, color):
     # General draw_line wrapper
     # Decides which octant_helper to call, modifies starting-ending points

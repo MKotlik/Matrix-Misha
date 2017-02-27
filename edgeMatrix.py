@@ -61,7 +61,7 @@ class EdgeMatrix:
                 if curLen > maxLen:
                     maxLen = curLen
             # Create padding formatting string
-            padStr = "{:>" + maxLen + "}"
+            padStr = "{:>" + str(maxLen) + "}"
             # Add each coord to respective rowStr, w/ padding
             r0 += padStr.format(point[0]) + ""
             r1 += padStr.format(point[1]) + ""
