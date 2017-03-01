@@ -19,9 +19,10 @@ class EdgeMatrix:
                 raise ValueError(
                     "initMatrix of EdgeMatrix constructor must have 4 rows")
             else:
-                self.matrixStore = initMatrix
+                self.matrixStore = initMatrix[:][:]
         elif prevObj is not None:
-            self.matrixStore = prevObj.getMatrix()
+            prevMatrix = prevObj.getMatrix()
+            self.matrixStore = prevMatrix[:][:]
         else:
             self.matrixStore = []
 
@@ -36,6 +37,16 @@ class EdgeMatrix:
                 intCol.append(int(round(rowCell)))
             intMatrix.append(intCol)
         return intMatrix
+
+    def setMatrix(self, new2dList):
+        if type(new2dList) is not list:
+            raise TypeError(
+                "initMatrix arg of EdgeMatrix constructor must be 2d list")
+        elif len(new2dList) > 0 and len(new2dList[0]) != 4:
+            raise ValueError(
+                "initMatrix of EdgeMatrix constructor must have 4 rows")
+        else:
+            self.matrixStore = new2dList[:][:]
 
     def addPoint(self, point):
         if type(point) is not list:
