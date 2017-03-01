@@ -28,6 +28,15 @@ class EdgeMatrix:
     def getMatrix(self):
         return self.matrixStore
 
+    def getIntMatrix(self):
+        intMatrix = []
+        for col in self.matrixStore:
+            intCol = []
+            for rowCell in col:
+                intCol.append(int(round(rowCell)))
+            intMatrix.append(intCol)
+        return intMatrix
+
     def addPoint(self, point):
         if type(point) is not list:
             raise TypeError(
@@ -35,7 +44,8 @@ class EdgeMatrix:
         elif len(point) != 4:
             raise ValueError(
                 "addPoint method of edgeMatrix takes a 4-element list")
-        self.matrixStore.append(point)
+        else:
+            self.matrixStore.append(point)
 
     def addEdge(self, point1, point2):
         try:
@@ -43,10 +53,10 @@ class EdgeMatrix:
             self.addPoint(point2)
         except TypeError:
             raise TypeError(
-                "addEdge method of edgeMatrix takes two 4-element lists")
+                "TE: addEdge method of edgeMatrix takes two 4-element lists")
         except ValueError:
             raise ValueError(
-                "addEdge method of edgeMatrix takes two 4-element lists")
+                "VE: addEdge method of edgeMatrix takes two 4-element lists")
 
     def __str__(self):
         if len(self.matrixStore) == 0:
