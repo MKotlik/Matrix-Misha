@@ -76,6 +76,7 @@ point2 = [250, 250, 0, 1]
 eM2.addEdge(point1, point2)
 print eM2
 print "\n---------------"
+"""
 print "Drawing from an edge matrix:"
 drawList = [[20, 20, 0, 1], [320, 20, 0, 1], [170, 420, 0, 1], [20, 20, 0, 1]]
 drawMatrix = EdgeMatrix(drawList)
@@ -83,12 +84,11 @@ print drawMatrix
 screen = new_screen()
 draw_matrix(drawMatrix.getMatrix(), screen, [0, 0, 255])
 print "Matrix drawn on screen"
-"""
 save_ppm(screen, "matrixTest.ppm")
 print "Windows Mode: matrix drawing saved as 'matrixTest.ppm'"
-"""
-display(screen)
-save_extension(screen, "matrixTest.png")
-print "Linux Mode: matrix drawing saved as 'matrixTest.png'"
+# display(screen)
+# save_extension(screen, "matrixTest.png")
+# print "Linux Mode: matrix drawing saved as 'matrixTest.png'"
 eM2.addEdge(point1, point2)
-print "\n---------------"
+# print "\n---------------"
+"""

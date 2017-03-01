@@ -115,4 +115,10 @@ def drawLogo():
         curY += 1
     draw_matrix(blueBox.getIntMatrix(), screen, blueColor)
 
-    save_ppm(screen, "empireGlitches.ppm")
+    # Display
+    display(screen)
+    save_extension(screen, "empireGlitches.png")
+    # save_ppm(screen, "empireGlitches.ppm")
+
+drawLogo()
+print "Drew Google logo for demonstration"
